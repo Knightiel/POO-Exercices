@@ -5,9 +5,18 @@
 public class Ex4 {
     public static void main(String[] args) {
         String sequenciaFibonacci = "";
-        int i=1, j=1, valorAtual=0;
-        while(valorAtual<=100){
-            
+        int i=0, j=1, valorAtual=0;
+        sequenciaFibonacci = i + " " + j + " ";
+        while(true){
+            valorAtual = i + j;
+            if(valorAtual>100){
+                break;
+            }else{
+                i = j;
+                j = valorAtual;
+                sequenciaFibonacci += valorAtual + " ";
+            }
         }
+        System.out.println(sequenciaFibonacci);
     }
 }
