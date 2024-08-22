@@ -38,15 +38,15 @@
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t-----MENU-----\n\n1 - Maior ou menor \n2 - Multiplo de 2 ou 3? \n3 - Organizador de palavras \n4 - MDC \n5 - Soma de números");
-        System.out.print("Escolha a função desejada: ");
+        System.out.println("Escolha a função desejada: ");
         int opcao = scanner.nextInt();
+        int numero;
         switch (opcao) {
-            
             case 1:
-                int numero = scanner.nextInt();
+                numero = scanner.nextInt();
                 if (numero > 10) {
                     System.out.println("MAIOR");
                 }else{
@@ -54,19 +54,44 @@ public class Main {
                 }
                 break;
             case 2:
-                
+                numero = scanner.nextInt();
+                if (numero % 2 == 0) {
+                    numero = numero * 5;
+                }
+                if (numero % 3 == 0) {
+                    numero = numero - 1;
+                }
+                System.out.println(numero);
                 break;
             case 3:
-                
+                String palavras = "";
+                numero = scanner.nextInt();
+                for (int i = 0; i < numero; i++) {
+                    System.out.println("Digite a palavra " + i + ": ");
+                    palavras +=  scanner.next() + " ";
+                }
+                System.out.println(palavras);
                 break;
             case 4:
+                int num1, num2;
+                System.out.println("Digite o primeiro número: ");
+                num1 = scanner.nextInt();
+                System.out.println("Digite o segundo número: ");
+                num2 = scanner.nextInt();
                 
-                break;
             case 5:
-                
+                System.out.println("Digite numeros para a soma, para pausar digite qualquer coisa que não seja número: ");
+                boolean bool =  true;
+                int soma;
+                while(bool){
+                    
+                }
                 break;
             
             default:
+                System.out.println("Opção inválida, o sistema será finalizado!");
+                Thread.sleep(1500);
+                System.exit(0);
                 break;
         }
     }
