@@ -81,9 +81,13 @@ public class Main {
                 
             case 5:
                 System.out.println("Digite numeros para a soma, para pausar digite qualquer coisa que não seja número: ");
-                boolean bool =  true;
-                int soma;
+                int soma=0;
+                boolean bool = true;
                 while(bool){
+                    scanner.next();
+                    if(scanner.hasNextInt()){
+                        
+                    }
                     
                 }
                 break;
@@ -94,5 +98,6 @@ public class Main {
                 System.exit(0);
                 break;
         }
+        scanner.close();
     }
 }
