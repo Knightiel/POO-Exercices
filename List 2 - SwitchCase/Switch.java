@@ -37,7 +37,7 @@
 
 import java.util.Scanner;
 
-public class Main {
+public class Switch {
     public static void main(String[] args) throws InterruptedException {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\t-----MENU-----\n\n1 - Maior ou menor \n2 - Multiplo de 2 ou 3? \n3 - Organizador de palavras \n4 - MDC \n5 - Soma de números");
