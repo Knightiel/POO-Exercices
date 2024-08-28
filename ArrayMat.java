@@ -49,6 +49,80 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class ArrayMat {
+    
+    static Integer[][] populaMatriz(Scanner scanner, Integer[][] matriz, Integer n, Integer m){
+        for(int i=0; i<n; i++){
+            for(int j=0;j<m; j++){
+                matriz[i][j] = scanner.nextInt();
+            }
+        }
+        return matriz;
+    }
+
+    static void mostraMatriz(Integer[][] matriz){
+        for (Integer[] linha : matriz) {
+            for(Integer elemento : linha){
+                System.out.print(elemento + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    static void ordenacao(Scanner scanner){
+        Integer n = scanner.nextInt();
+        Integer sequencia[] = new Integer[n];
+        for(int i=0; i<n; i++) {
+            sequencia[i] = scanner.nextInt();
+        }
+        Arrays.sort(sequencia);
+        for (Integer numeros : sequencia) {
+            System.out.print(numeros + " ");
+        }
+    }
+
+    static void soma2Matrizes(Integer[][] matA, Integer[][] matB){
+        Integer[][] matC = new Integer[matA.length][matA[0].length];
+        for(int i=0; i<matA.length; i++){
+            for(int j=0; j<matA[0].length; j++){
+                matC[i][j] = matA[i][j] + matB[i][j];
+            }
+        }
+        mostraMatriz(matC);
+    }
+
+    static void multiplica2Matrizes(Integer[][] matA, Integer[][] matB){
+        Integer[][] matC = new Integer[matA.length][matB[0].length];
+    }
+
+    static void constroeMatriz(Scanner scanner){
+        Integer n = scanner.nextInt();
+        Integer m = scanner.nextInt();
+        Integer matriz[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, matriz, n, m);
+        ArrayMat.mostraMatriz(matriz);
+    }
+
+    static void somaMatrizes(Scanner scanner){
+        Integer n, m;
+        n = scanner.nextInt();
+        m = scanner.nextInt();
+        Integer matA[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, matA, n, m);
+        Integer matB[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, matB, n, m);
+        ArrayMat.soma2Matrizes(matA, matB);
+    }
+
+    static void multiplicaMatrizes(Scanner scanner){
+        Integer n, m;
+        n = scanner.nextInt();
+        m = scanner.nextInt();
+        Integer matA[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, matA, n, m);
+        Integer matB[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, matB, n, m);
+    }
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Integer opcao = scanner.nextInt();
@@ -56,33 +130,12 @@ public class ArrayMat {
         switch (opcao) {
             //Ordenação
             case 1:
-                n = scanner.nextInt();
-                Integer sequencia[] = new Integer[n];
-                for(int i=0; i<n; i++) {
-                    sequencia[i] = scanner.nextInt();
-                }
-                Arrays.sort(sequencia);
-                for (Integer numeros : sequencia) {
-                    System.out.print(numeros + " ");
-                }
+                ArrayMat.ordenacao(scanner);
                 break;
             
             //Construção de Matriz
             case 2:
-                n = scanner.nextInt();
-                m = scanner.nextInt();
-                Integer matriz[][] = new Integer[n][m];
-                for (int i = 0; i < n; i++) {
-                    for (int j = 0; j < m; j++) {
-                        matriz[i][j] = scanner.nextInt();
-                    }
-                }
-                for (Integer[] linha : matriz) {
-                    for(Integer elemento : linha){
-                        System.out.print(elemento + " ");
-                    }
-                    System.out.println();
-                }
+                ArrayMat.constroeMatriz(scanner);
                 break;
                 
             //Determinante da Matriz
@@ -92,12 +145,12 @@ public class ArrayMat {
 
             //Soma de Matrizes
             case 4:
-                
+                ArrayMat.somaMatrizes(scanner);
                 break;
 
             //Multiplicação de Matrizes
             case 5:
-                
+                multiplicaMatrizes(scanner);
                 break;
             
             default:
