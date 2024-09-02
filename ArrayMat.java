@@ -92,6 +92,14 @@ public class ArrayMat {
 
     static void multiplica2Matrizes(Integer[][] matA, Integer[][] matB){
         Integer[][] matC = new Integer[matA.length][matB[0].length];
+        for(int i=0; i<matA.length; i++){
+            for(int j=0; j<matB[0].length; j++){
+                for(int k=0; k<matA[0].length; k++){
+                    matC[i][j] += matA[i][k] * matB[k][j];
+                }
+            }
+        }
+        mostraMatriz(matC);
     }
 
     static void constroeMatriz(Scanner scanner){
@@ -110,7 +118,7 @@ public class ArrayMat {
         ArrayMat.populaMatriz(scanner, matA, n, m);
         Integer matB[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matB, n, m);
-        ArrayMat.soma2Matrizes(matA, matB);
+        ArrayMat.multiplica2Matrizes(matA, matB);
     }
 
     static void multiplicaMatrizes(Scanner scanner){
@@ -121,12 +129,12 @@ public class ArrayMat {
         ArrayMat.populaMatriz(scanner, matA, n, m);
         Integer matB[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matB, n, m);
+        ArrayMat.multiplica2Matrizes(matA, matB);
     }
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Integer opcao = scanner.nextInt();
-        Integer n, m;
         switch (opcao) {
             //Ordenação
             case 1:
@@ -150,7 +158,7 @@ public class ArrayMat {
 
             //Multiplicação de Matrizes
             case 5:
-                multiplicaMatrizes(scanner);
+                ArrayMat.multiplicaMatrizes(scanner);
                 break;
             
             default:
