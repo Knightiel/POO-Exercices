@@ -92,6 +92,10 @@ public class ArrayMat {
 
     static void multiplica2Matrizes(Integer[][] matA, Integer[][] matB){
         Integer[][] matC = new Integer[matA.length][matB[0].length];
+        System.out.println("\n\n");
+        mostraMatriz(matA);
+        mostraMatriz(matB);
+        mostraMatriz(matC);
         for(int i=0; i<matA.length; i++){
             for(int j=0; j<matB[0].length; j++){
                 for(int k=0; k<matA[0].length; k++){
@@ -118,7 +122,7 @@ public class ArrayMat {
         ArrayMat.populaMatriz(scanner, matA, n, m);
         Integer matB[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matB, n, m);
-        ArrayMat.multiplica2Matrizes(matA, matB);
+        ArrayMat.soma2Matrizes(matA, matB);
     }
 
     static void multiplicaMatrizes(Scanner scanner){
@@ -130,6 +134,44 @@ public class ArrayMat {
         Integer matB[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matB, n, m);
         ArrayMat.multiplica2Matrizes(matA, matB);
+    }
+
+     // Método para obter o cofator de uma matriz
+     static void getCofactor(int mat[][], int temp[][], int p, int q, int n) {
+        int i = 0, j = 0;
+        for (int row = 0; row < n; row++) {
+            for (int col = 0; col < n; col++) {
+                if (row != p && col != q) {
+                    temp[i][j++] = mat[row][col];
+                    if (j == n - 1) {
+                        j = 0;
+                        i++;
+                    }
+                }
+            }
+        }
+    }
+
+    // Método recursivo para calcular o determinante
+    static int calculaDeterminante(Scanner scanner) {
+        Integer n, m;
+        n = scanner.nextInt();
+        m = Integer.valueOf(n);
+        Integer mat[][] = new Integer[n][m];
+        ArrayMat.populaMatriz(scanner, mat, n, m);
+        int determinante = 0;
+        if (n == 1)
+            return mat[0][0];
+
+        int temp[][] = new int[n][n];
+        int sign = 1;
+
+        for (int f = 0; f < n; f++) {
+            getCofactor(mat, temp, 0, f, n);
+            determinante += sign * mat[0][f] * calculaDeterminante(temp, n - 1);
+            sign = -sign;
+        }
+        return determinante;
     }
 
     public static void main(String[] args) {
@@ -148,7 +190,7 @@ public class ArrayMat {
                 
             //Determinante da Matriz
             case 3:
-                
+                calculaDeterminante(scanner);
                 break;
 
             //Soma de Matrizes
