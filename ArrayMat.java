@@ -80,38 +80,22 @@ public class ArrayMat {
         }
     }
 
-    static void soma2Matrizes(Integer[][] matA, Integer[][] matB){
-        Integer[][] matC = new Integer[matA.length][matA[0].length];
-        for(int i=0; i<matA.length; i++){
-            for(int j=0; j<matA[0].length; j++){
-                matC[i][j] = matA[i][j] + matB[i][j];
-            }
-        }
-        mostraMatriz(matC);
-    }
-
-    static void multiplica2Matrizes(Integer[][] matA, Integer[][] matB){
-        Integer[][] matC = new Integer[matA.length][matB[0].length];
-        System.out.println("\n\n");
-        mostraMatriz(matA);
-        mostraMatriz(matB);
-        mostraMatriz(matC);
-        for(int i=0; i<matA.length; i++){
-            for(int j=0; j<matB[0].length; j++){
-                for(int k=0; k<matA[0].length; k++){
-                    matC[i][j] += matA[i][k] * matB[k][j];
-                }
-            }
-        }
-        mostraMatriz(matC);
-    }
-
     static void constroeMatriz(Scanner scanner){
         Integer n = scanner.nextInt();
         Integer m = scanner.nextInt();
         Integer matriz[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matriz, n, m);
         ArrayMat.mostraMatriz(matriz);
+    }
+
+    static void soma2Matrizes(Integer[][] matA, Integer[][] matB){
+        Integer matC[][] = new Integer[matA.length][matA[0].length];
+        for(int i=0; i<matA.length; i++){
+            for(int j=0; j<matA[0].length; j++){
+                matC[i][j] = matA[i][j] + matB[i][j];
+            }
+        }
+        mostraMatriz(matC);
     }
 
     static void somaMatrizes(Scanner scanner){
@@ -123,6 +107,19 @@ public class ArrayMat {
         Integer matB[][] = new Integer[n][m];
         ArrayMat.populaMatriz(scanner, matB, n, m);
         ArrayMat.soma2Matrizes(matA, matB);
+    }
+
+    static void multiplica2Matrizes(Integer[][] matA, Integer[][] matB){
+        Integer matC[][] = new Integer[matA.length][matB[0].length];
+        System.out.println("\n\n");
+        for(int i=0; i<matA.length; i++){
+            for(int j=0; j<matB[0].length; j++){
+                for(int k=0; k<matA[0].length; k++){
+                    matC[i][j] += matA[i][k] * matB[k][j];
+                }
+            }
+        }
+        mostraMatriz(matC);
     }
 
     static void multiplicaMatrizes(Scanner scanner){
@@ -137,12 +134,12 @@ public class ArrayMat {
     }
 
      // Método para obter o cofator de uma matriz
-     static void getCofactor(int mat[][], int temp[][], int p, int q, int n) {
+     static void calculaCofator(Integer mat[][], Integer temp[][], Integer lin, Integer col, Integer n) {
         int i = 0, j = 0;
-        for (int row = 0; row < n; row++) {
-            for (int col = 0; col < n; col++) {
-                if (row != p && col != q) {
-                    temp[i][j++] = mat[row][col];
+        for (int linha = 0; linha < n; linha++) {
+            for (int coluna = 0; coluna < n; coluna++) {
+                if (linha != lin && coluna != col) {
+                    temp[i][j++] = mat[linha][coluna];
                     if (j == n - 1) {
                         j = 0;
                         i++;
@@ -153,23 +150,18 @@ public class ArrayMat {
     }
 
     // Método recursivo para calcular o determinante
-    static int calculaDeterminante(Scanner scanner) {
-        Integer n, m;
-        n = scanner.nextInt();
-        m = Integer.valueOf(n);
-        Integer mat[][] = new Integer[n][m];
-        ArrayMat.populaMatriz(scanner, mat, n, m);
+    static int calculaDeterminante(Integer mat[][], int n) {
         int determinante = 0;
         if (n == 1)
             return mat[0][0];
 
-        int temp[][] = new int[n][n];
-        int sign = 1;
+        Integer temp[][] = new Integer[n][n];
+        int positivoNegativo = 1;
 
-        for (int f = 0; f < n; f++) {
-            getCofactor(mat, temp, 0, f, n);
-            determinante += sign * mat[0][f] * calculaDeterminante(temp, n - 1);
-            sign = -sign;
+        for (int i = 0; i < n; i++) {
+            calculaCofator(mat, temp, 0, i, n);
+            determinante += positivoNegativo * mat[0][i] * calculaDeterminante(temp, n - 1);
+            positivoNegativo = -positivoNegativo;
         }
         return determinante;
     }
@@ -190,7 +182,12 @@ public class ArrayMat {
                 
             //Determinante da Matriz
             case 3:
-                calculaDeterminante(scanner);
+                Integer n;
+                n = scanner.nextInt();
+                Integer mat[][] = new Integer[n][n];
+                ArrayMat.populaMatriz(scanner, mat, n, n);
+                Integer det = calculaDeterminante(mat, n);
+                System.out.println(det);
                 break;
 
             //Soma de Matrizes
@@ -204,7 +201,7 @@ public class ArrayMat {
                 break;
             
             default:
-            System.exit(0);
+                System.exit(0);
                 break;
         }  
         scanner.close();
