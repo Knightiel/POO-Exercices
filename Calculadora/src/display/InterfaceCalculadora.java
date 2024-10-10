@@ -15,6 +15,63 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
      */
     public InterfaceCalculadora() {
         initComponents();
+        reiniciaCalculadora();
+    }
+    
+    String calculadora = "0";
+    String operador = "";
+    
+    private void mostraDisplay(String display){
+        jLabelDisplay.setText(display);
+    }
+    
+    private void reiniciaCalculadora(){
+        calculadora = "0";
+        jLabelDisplay.setText(calculadora);
+    }
+    
+    private void digitaNumero(String num){
+        if(calculadora.length() < 3){
+            if(calculadora.equals("0")){
+            calculadora = num;
+            }else{
+                calculadora += num;
+            }
+            mostraDisplay(calculadora);
+        }else{
+            System.out.println("Limite de números digitados atingido!");
+        }
+    }
+    
+    private String realizaConta(int num1, int num2, String op){
+        Integer conta;
+        String resultado;
+        switch (op) {
+            case "+":
+                conta = num1 + num2;
+                resultado = conta.toString();
+                return resultado;
+        
+            case "-":
+                conta = num1 - num2;
+                resultado = conta.toString();
+                return resultado;
+            
+            case "*":
+                conta = num1 * num2;
+                resultado = conta.toString();
+                return resultado;
+            
+            case "/":
+                if(num2 == 0){
+                    resultado = "NaN";
+                    return resultado;
+                }else{
+                    conta = num1 / num2;
+                    resultado = conta.toString();
+                    return resultado;
+                }
+        }
     }
 
     /**
@@ -40,7 +97,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
         jB9 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jBComma = new javax.swing.JButton();
+        jBCancel = new javax.swing.JButton();
         jB0 = new javax.swing.JButton();
         jBEqual = new javax.swing.JButton();
         jBDivision = new javax.swing.JButton();
@@ -69,30 +126,75 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
 
         jB1.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB1.setText("1");
+        jB1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB1ActionPerformed(evt);
+            }
+        });
 
         jB3.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB3.setText("3");
+        jB3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB3ActionPerformed(evt);
+            }
+        });
 
         jB4.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB4.setText("4");
+        jB4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB4ActionPerformed(evt);
+            }
+        });
 
         jB2.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB2.setText("2");
+        jB2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB2ActionPerformed(evt);
+            }
+        });
 
         jB7.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB7.setText("7");
+        jB7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB7ActionPerformed(evt);
+            }
+        });
 
         jB8.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB8.setText("8");
+        jB8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB8ActionPerformed(evt);
+            }
+        });
 
         jB6.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB6.setText("6");
+        jB6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB6ActionPerformed(evt);
+            }
+        });
 
         jB5.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB5.setText("5");
+        jB5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB5ActionPerformed(evt);
+            }
+        });
 
         jB9.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB9.setText("9");
+        jB9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB9ActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Bauhaus 93", 0, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 51));
@@ -102,26 +204,56 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 51));
         jLabel2.setText("POO");
 
-        jBComma.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
-        jBComma.setText(",");
+        jBCancel.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
+        jBCancel.setText("C");
+        jBCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBCancelActionPerformed(evt);
+            }
+        });
 
         jB0.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jB0.setText("0");
+        jB0.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jB0ActionPerformed(evt);
+            }
+        });
 
         jBEqual.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBEqual.setText("=");
 
         jBDivision.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBDivision.setText("/");
+        jBDivision.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBDivisionActionPerformed(evt);
+            }
+        });
 
         jBMultiple.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBMultiple.setText("x");
+        jBMultiple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBMultipleActionPerformed(evt);
+            }
+        });
 
         jBSubtract.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBSubtract.setText("-");
+        jBSubtract.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSubtractActionPerformed(evt);
+            }
+        });
 
         jBSum.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBSum.setText("+");
+        jBSum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSumActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,7 +294,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jB0, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jBComma, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jBEqual, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -200,7 +332,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jBComma, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBEqual, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jBSum, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jB0, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -226,6 +358,68 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBCancelActionPerformed
+        reiniciaCalculadora();
+    }//GEN-LAST:event_jBCancelActionPerformed
+
+    private void jB0ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB0ActionPerformed
+       if(!calculadora.equals("0")){
+            digitaNumero("0");   
+       }         
+    }//GEN-LAST:event_jB0ActionPerformed
+
+    private void jB1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB1ActionPerformed
+        digitaNumero("1");  
+    }//GEN-LAST:event_jB1ActionPerformed
+
+    private void jB2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB2ActionPerformed
+        digitaNumero("2"); 
+    }//GEN-LAST:event_jB2ActionPerformed
+
+    private void jB3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB3ActionPerformed
+        digitaNumero("3"); 
+    }//GEN-LAST:event_jB3ActionPerformed
+
+    private void jB4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB4ActionPerformed
+        digitaNumero("4"); 
+    }//GEN-LAST:event_jB4ActionPerformed
+
+    private void jB5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB5ActionPerformed
+        digitaNumero("5"); 
+    }//GEN-LAST:event_jB5ActionPerformed
+
+    private void jB6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB6ActionPerformed
+        digitaNumero("6"); 
+    }//GEN-LAST:event_jB6ActionPerformed
+
+    private void jB7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB7ActionPerformed
+        digitaNumero("7"); 
+    }//GEN-LAST:event_jB7ActionPerformed
+
+    private void jB8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB8ActionPerformed
+        digitaNumero("8"); 
+    }//GEN-LAST:event_jB8ActionPerformed
+
+    private void jB9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jB9ActionPerformed
+        digitaNumero("9"); 
+    }//GEN-LAST:event_jB9ActionPerformed
+
+    private void jBSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSumActionPerformed
+        operador = "+";
+    }//GEN-LAST:event_jBSumActionPerformed
+
+    private void jBSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSubtractActionPerformed
+        operador = "-";
+    }//GEN-LAST:event_jBSubtractActionPerformed
+
+    private void jBMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMultipleActionPerformed
+        operador = "*";
+    }//GEN-LAST:event_jBMultipleActionPerformed
+
+    private void jBDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDivisionActionPerformed
+        operador = "/";
+    }//GEN-LAST:event_jBDivisionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,7 +467,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     private javax.swing.JButton jB7;
     private javax.swing.JButton jB8;
     private javax.swing.JButton jB9;
-    private javax.swing.JButton jBComma;
+    private javax.swing.JButton jBCancel;
     private javax.swing.JButton jBDivision;
     private javax.swing.JButton jBEqual;
     private javax.swing.JButton jBMultiple;
