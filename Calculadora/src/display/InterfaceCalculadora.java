@@ -19,8 +19,9 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     }
     
     String calculadora = "0";
-    String numAnterior = "";
+    int numAnterior;
     String operador = "";
+    boolean contaFeita = false;
     
     private void mostraDisplay(String display){
         jLabelDisplay.setText(display);
@@ -33,34 +34,41 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     }
     
     private void digitaNumero(String num){
-        if(calculadora.length() < 3){
-            if(calculadora.equals("0")){
-            calculadora = num;
+        if(!contaFeita){
+            if(calculadora.length() < 3){
+                if(calculadora.equals("0")){
+                calculadora = num;
+                }else{
+                    calculadora += num;
+                }
+                mostraDisplay(calculadora);
             }else{
-                calculadora += num;
+                System.out.println("Limite de números digitados atingido!");
             }
-            mostraDisplay(calculadora);
         }else{
-            System.out.println("Limite de números digitados atingido!");
+            reiniciaCalculadora();
+            contaFeita = false;
+            digitaNumero(num);
         }
+        
     }
     
-    private String realizaConta(String num1, String num2, String op){
+    private String realizaConta(int num1, String num2, String op){
         Integer conta;
         String resultado;
         switch (op) {
             case "+":
-                conta = Integer.parseInt(num1) + Integer.parseInt(num2);
+                conta = num1 + Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
         
             case "-":
-                conta = Integer.parseInt(num1) - Integer.parseInt(num2);
+                conta = num1 - Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
             
             case "*":
-                conta = Integer.parseInt(num1) * Integer.parseInt(num2);
+                conta = num1 * Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
             
@@ -69,12 +77,12 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
                     resultado = "NaN";
                     return resultado;
                 }else{
-                    conta = Integer.parseInt(num1) / Integer.parseInt(num2);
+                    conta = num1 / Integer.parseInt(num2);
                     resultado = conta.toString();
                     return resultado;
                 }
         }
-        return "nan";
+        return "NaN";
     }
 
     /**
@@ -416,30 +424,32 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
 
     private void jBSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSumActionPerformed
         operador = "+";
-        numAnterior = calculadora;
+        setNumAnterior(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBSumActionPerformed
 
     private void jBSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSubtractActionPerformed
         operador = "-";
-        numAnterior = calculadora;
+        numAnterior = String.valueOf(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBSubtractActionPerformed
 
     private void jBMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMultipleActionPerformed
         operador = "*";
-        numAnterior = calculadora;
+        numAnterior = String.valueOf(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBMultipleActionPerformed
 
     private void jBDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDivisionActionPerformed
         operador = "/";
-        numAnterior = calculadora;
+        numAnterior = String.valueOf(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBDivisionActionPerformed
 
     private void jBEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEqualActionPerformed
+        System.out.println(numAnterior + operador + calculadora);
         calculadora = realizaConta(numAnterior, calculadora, operador);
+        contaFeita = true;
         mostraDisplay(calculadora);
     }//GEN-LAST:event_jBEqualActionPerformed
 
