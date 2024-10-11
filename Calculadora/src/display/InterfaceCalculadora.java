@@ -19,6 +19,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     }
     
     String calculadora = "0";
+    String numAnterior = "";
     String operador = "";
     
     private void mostraDisplay(String display){
@@ -27,6 +28,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     
     private void reiniciaCalculadora(){
         calculadora = "0";
+        numAnterior = "";
         jLabelDisplay.setText(calculadora);
     }
     
@@ -43,35 +45,36 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
         }
     }
     
-    private String realizaConta(int num1, int num2, String op){
+    private String realizaConta(String num1, String num2, String op){
         Integer conta;
         String resultado;
         switch (op) {
             case "+":
-                conta = num1 + num2;
+                conta = Integer.parseInt(num1) + Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
         
             case "-":
-                conta = num1 - num2;
+                conta = Integer.parseInt(num1) - Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
             
             case "*":
-                conta = num1 * num2;
+                conta = Integer.parseInt(num1) * Integer.parseInt(num2);
                 resultado = conta.toString();
                 return resultado;
             
             case "/":
-                if(num2 == 0){
+                if(Integer.parseInt(num2) == 0){
                     resultado = "NaN";
                     return resultado;
                 }else{
-                    conta = num1 / num2;
+                    conta = Integer.parseInt(num1) / Integer.parseInt(num2);
                     resultado = conta.toString();
                     return resultado;
                 }
         }
+        return "nan";
     }
 
     /**
@@ -112,6 +115,7 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabelDisplay.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelDisplay.setFont(new java.awt.Font("OCR A Extended", 0, 48)); // NOI18N
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -222,6 +226,11 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
 
         jBEqual.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBEqual.setText("=");
+        jBEqual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBEqualActionPerformed(evt);
+            }
+        });
 
         jBDivision.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jBDivision.setText("/");
@@ -407,19 +416,32 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
 
     private void jBSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSumActionPerformed
         operador = "+";
+        numAnterior = calculadora;
+        reiniciaCalculadora();
     }//GEN-LAST:event_jBSumActionPerformed
 
     private void jBSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSubtractActionPerformed
         operador = "-";
+        numAnterior = calculadora;
+        reiniciaCalculadora();
     }//GEN-LAST:event_jBSubtractActionPerformed
 
     private void jBMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMultipleActionPerformed
         operador = "*";
+        numAnterior = calculadora;
+        reiniciaCalculadora();
     }//GEN-LAST:event_jBMultipleActionPerformed
 
     private void jBDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDivisionActionPerformed
         operador = "/";
+        numAnterior = calculadora;
+        reiniciaCalculadora();
     }//GEN-LAST:event_jBDivisionActionPerformed
+
+    private void jBEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEqualActionPerformed
+        calculadora = realizaConta(numAnterior, calculadora, operador);
+        mostraDisplay(calculadora);
+    }//GEN-LAST:event_jBEqualActionPerformed
 
     /**
      * @param args the command line arguments
