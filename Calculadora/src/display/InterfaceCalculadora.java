@@ -22,14 +22,18 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     int numAnterior;
     String operador = "";
     boolean contaFeita = false;
+    boolean operadorDigitado = false;
     
     private void mostraDisplay(String display){
         jLabelDisplay.setText(display);
+        if(display.equals("NaN")){
+            calculadora = "0";
+        }
     }
     
     private void reiniciaCalculadora(){
         calculadora = "0";
-        numAnterior = "";
+        //numAnterior = 0;
         jLabelDisplay.setText(calculadora);
     }
     
@@ -50,7 +54,14 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
             contaFeita = false;
             digitaNumero(num);
         }
-        
+    }
+    
+    private void ativaEquals(){
+        calculadora = realizaConta(numAnterior, calculadora, operador);
+        System.out.println("Resultado: " + calculadora);
+        contaFeita = true;
+        operadorDigitado = false;
+        mostraDisplay(calculadora);
     }
     
     private String realizaConta(int num1, String num2, String op){
@@ -423,34 +434,47 @@ public class InterfaceCalculadora extends javax.swing.JFrame {
     }//GEN-LAST:event_jB9ActionPerformed
 
     private void jBSumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSumActionPerformed
+        if(operadorDigitado){
+            ativaEquals();
+        }
         operador = "+";
-        setNumAnterior(calculadora);
+        operadorDigitado = true;
+        numAnterior = Integer.parseInt(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBSumActionPerformed
 
     private void jBSubtractActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSubtractActionPerformed
+        if(operadorDigitado){
+            ativaEquals();
+        }
         operador = "-";
-        numAnterior = String.valueOf(calculadora);
+        operadorDigitado = true;
+        numAnterior = Integer.parseInt(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBSubtractActionPerformed
 
     private void jBMultipleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBMultipleActionPerformed
+        if(operadorDigitado){
+            ativaEquals();
+        }
         operador = "*";
-        numAnterior = String.valueOf(calculadora);
+        operadorDigitado = true;
+        numAnterior = Integer.parseInt(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBMultipleActionPerformed
 
     private void jBDivisionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDivisionActionPerformed
+        if(operadorDigitado){
+            ativaEquals();
+        }
         operador = "/";
-        numAnterior = String.valueOf(calculadora);
+        operadorDigitado = true;
+        numAnterior = Integer.parseInt(calculadora);
         reiniciaCalculadora();
     }//GEN-LAST:event_jBDivisionActionPerformed
 
     private void jBEqualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEqualActionPerformed
-        System.out.println(numAnterior + operador + calculadora);
-        calculadora = realizaConta(numAnterior, calculadora, operador);
-        contaFeita = true;
-        mostraDisplay(calculadora);
+        ativaEquals();
     }//GEN-LAST:event_jBEqualActionPerformed
 
     /**
